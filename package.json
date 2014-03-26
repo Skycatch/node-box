@@ -1,0 +1,22 @@
+{
+  "name": "node-box",
+  "version": "0.0.1",
+  "description": "Box API client for Node.JS",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "box.com",
+    "box",
+    "box.net"
+  ],
+  "author": "Benjamin Lyaunzon <ben@skycatch.com>",
+  "license": "N/A",
+  "dependencies": {
+    "superagent": "~0.17.0"
+  }
+}
