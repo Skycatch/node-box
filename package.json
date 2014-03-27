@@ -1,7 +1,11 @@
 {
-  "name": "node-box",
+  "name": "nodejs-box",
   "version": "0.0.1",
   "description": "Box API client for Node.JS",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Skycatch/node-box.git"
+  },
   "main": "lib/index.js",
   "directories": {
     "test": "test"
