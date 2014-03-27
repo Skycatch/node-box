@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "make test"
+    "test": "node test"
   },
   "keywords": [
     "box.com",
@@ -18,5 +18,8 @@
   "license": "N/A",
   "dependencies": {
     "superagent": "~0.17.0"
+  },
+  "devDependencies": {
+    "prova" : "latest"
   }
 }
