@@ -1,8 +1,13 @@
 var Box = require('../lib/'),
-    test = require('prova');
+    test = require('prova'),
+    async = require('async');
+
+var fs = require('fs'),
+    request = require('superagent');
+
 
 var box = new Box({
-  access_token: process.env.access_token
+  access_token: process.env.token
 });
 
 
@@ -17,90 +22,23 @@ test('Module', function(assert){
 test('Resource: Folders', function(t){
 
   t.test('Method: root',function(assert){
-    box.folders.root(function(err, res){
+    box.folders.info('2095638196',function(err, res){
+      res.item_collection.entries.forEach(function(o){
+        box.files.info(o.id, 'extension,name', function(err, res2){
+          if(res2.extension === 'txt'){
+            box.files.download(res2.id, function(err, res3){
+              var file = fs.createWriteStream('./out/'+res2.name);
+              var req = request.get(res3);
+              req.pipe(file);
+
+            })
+          }
+        })
+      })
       assert.notOk(err);
       assert.ok(res);
       assert.end();
     });
   });
 
-  var testFolderID = null,
-      testFolderName = 'Test Folder';
-
-  t.test('Method: create', function(assert){
-    box.folders.create(testFolderName, '0', function(err, res){
-      assert.notOk(err);
-      assert.ok(res);
-
-      testFolderID = res.id;
-
-      assert.end();
-    });
-  });
-
-  t.test('Method: info', function(assert){
-    box.folders.info(testFolderID, function(err, res){
-
-      assert.notOk(err);
-      assert.ok(res);
-
-      assert.equal(res.id, testFolderID);
-      assert.equal(res.name, testFolderName);
-
-      assert.end();
-    });
-  });
-
-  t.test('Method: delete', function(assert){
-    box.folders.delete(testFolderID, function(err, res){
-      assert.notOk(err);
-      assert.ok(res);
-
-      assert.deepEqual(res, {});
-
-      assert.end();
-    });
-  });
-
-
-});
-
-test('Resource: Files', function(t){
-  function before(callback){
-    box.folders.create('Test Folder 2', '0', function(err, res){
-      if(err) return callback(err);
-
-      callback(null, res.id);
-    });
-  }
-
-  function after(id, callback){
-    box.folders.delete(id, function(err, res){
-      if(err) return callback(err);
-
-      callback(null, res);
-    });
-  }
-
-  before(function(err, folderID){
-    t.notOk(err);
-
-    t.test('Method: upload', function(assert){
-      box.files.upload('./test/img/cat.jpg', folderID, function(err, res){
-        assert.notOk(err);
-        assert.ok(res);
-        assert.end();
-      });
-    });
-
-    after(folderID, function(err, res){
-      t.notOk(err);
-      t.ok(res);
-
-      t.deepEqual(res, {});
-
-
-      t.end();
-    });
-  });
 });
