@@ -44,6 +44,10 @@ if true, will delete the folder even if it is not empty.
 
 Uploads a file given a path and a folder ID
 
+### box.files.createSharedLink(file_id, options, callback)
+
+Creates a shared link for a file
+
 ### box.files.createMetadata(metadata, file_id)
 
 Create metadata for a given file (ID)
