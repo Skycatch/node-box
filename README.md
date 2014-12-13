@@ -17,7 +17,7 @@ var box = new Box({
   refreh_token: 'YOUR_REFRESH_TOKEN_GOES_HERE'
 });
 ```
-Check out the [tests](../blob/master/test/index.js) for more usage examples.
+Check out the [tests](../master/test/index.js) for more usage examples.
 ## Folders
 
 ### box.folders.info(folder_id, callback)
