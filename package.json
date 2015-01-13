@@ -1,6 +1,6 @@
 {
   "name": "nodejs-box",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Box API client for Node.JS",
   "repository": {
     "type": "git",

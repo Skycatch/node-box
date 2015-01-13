@@ -8,51 +8,56 @@ var fs = require('fs'),
 
 
 var box = new Box({
-  access_token: 'wUvcSE54t2dPopGTtMudT2LqKIioSB89'
+  access_token: null
 });
 
-
-box.folders.items('2804097017', 1000, 0,'https://app.box.com/s/1lsz05uylsb8cg12ilkh', null, function (err, res) {
-  if (err) {
-    console.log(err);
-  }
-
-  var files = res.entries || [];
-
-  var outputDir = './testData/';
-
-  async.eachLimit(files, 4, function(file, cb) {
-
-    console.log('downloading: ' + file.name);
-
-    // get file url for download
-    box.files.download(file.id, 'https://app.box.com/s/1lsz05uylsb8cg12ilkh', function(err, res) {
-      if (err) {
-        cb(err);
-      }
-
-      // make request to download file to system
-      var req = request(res),
-          filePath = path.join(outputDir, file.name);
-      
-      req.pipe(fs.createWriteStream(filePath));
-      req.on('err', function(err){
-        cb(err);
-      });
-      req.on('end', function(){
-        
-          cb(null);
-      });
-    });
-
-  }, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(files.length + ' file(s) downloaded');
-    }
+box.files.info('23806771379', function (err, res) {
+  box.files.createSharedLink(res.id, function (err, res){
+    console.log(err, res);
   });
 });
+
+// box.folders.items('2804097017', 1000, 0,'https://app.box.com/s/1lsz05uylsb8cg12ilkh', null, function (err, res) {
+//   if (err) {
+//     console.log(err);
+//   }
+
+//   var files = res.entries || [];
+
+//   var outputDir = './testData/';
+
+//   async.eachLimit(files, 4, function(file, cb) {
+
+//     console.log('downloading: ' + file.name);
+
+//     // get file url for download
+//     box.files.download(file.id, 'https://app.box.com/s/1lsz05uylsb8cg12ilkh', function(err, res) {
+//       if (err) {
+//         cb(err);
+//       }
+
+//       // make request to download file to system
+//       var req = request(res),
+//           filePath = path.join(outputDir, file.name);
+      
+//       req.pipe(fs.createWriteStream(filePath));
+//       req.on('err', function(err){
+//         cb(err);
+//       });
+//       req.on('end', function(){
+        
+//           cb(null);
+//       });
+//     });
+
+//   }, function(err) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(files.length + ' file(s) downloaded');
+//     }
+//   });
+// });
 
 // test('Module', function(assert){
 //   assert.ok(box.options);
