@@ -18,4 +18,47 @@ var box = new Box({
 });
 ```
 
+## Example Usage
+
+### Working with files
+
+Once you've creted a `Box` instance (see above section) you can act on file
+resources by calling functions on `box.files`.
+
+#### Uploading a file
+There are two ways to upload a file:
+
+* If the file has a custom filename
+
+`box.files.upload(filepath, filename, folderId, callback);`
+
+* If the file does not have a custom filename
+
+`box.files.upload(filepath, folderId, callback);`
+
+#### Create and view information about a file
+Get information about a file:
+
+`box.files.info(fileId, fields, callback);`
+
+Create metadata for a file:
+
+`box.files.createMetadata(fileId, metadata, callback);`
+
+#### Download links
+There are two ways to get a download link for a file:
+
+* Retrieve a download link for the given file without a shared item:
+
+`box.files.download(fileId, callback);`
+
+* Retrieve a download link for the given file from a shared item:
+
+`box.files.download(fileId, shareLink, callback);`
+
+#### Creating a shared link
+Create a shared link:
+
+`box.files.createSharedLink(file, sharedLinkSettings, callback);`
+
 ### UPDATED README COMING SOON
