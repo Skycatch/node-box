@@ -45,6 +45,15 @@ Create metadata for a file:
 
 `box.files.createMetadata(fileId, metadata, callback);`
 
+Get all metadata for a file
+
+`box.files.getAllMetadata(fileId, callback);`
+
+Get specific metadata for a file. The `path` parameter is a combination of the `scope` and `template` attributes on the Box.com api,
+so will look like `enterprise/marketingCollateral`. For more detail, see the [Box.com api docs](https://box-content.readme.io/#metadata-object)
+
+`box.files.getMetadata(fileId, path, callback);`
+
 #### Download links
 There are two ways to get a download link for a file:
 
