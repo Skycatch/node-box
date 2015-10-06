@@ -24,6 +24,7 @@
     "superagent": "~0.18.0"
   },
   "devDependencies": {
-    "prova": "latest"
+    "nock": "latest",
+    "prova": "latest",
   }
 }
