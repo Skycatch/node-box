@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "nock": "latest",
-    "prova": "latest",
+    "prova": "latest"
   }
 }
